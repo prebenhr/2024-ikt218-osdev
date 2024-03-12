@@ -1,9 +1,11 @@
 #pragma once
+#include "libc/stdint.h"
 
+// Defining screen size, the grid size for text
 #define width 80
 #define height 25
 
-// Colorchart
+// Colorchart with values for colors.
 #define BLACK 0
 #define BLUE 1
 #define GREEN 2
@@ -21,7 +23,9 @@
 #define YELLOW 14
 #define WHITE 15
 
+// Declaring the functions used for writing on screen.
 void clearScreen();
+void setColors(uint16_t background, uint16_t text);
 void putc(const char c);
 void terminalWrite(const char *string);
 void scrollUp();
