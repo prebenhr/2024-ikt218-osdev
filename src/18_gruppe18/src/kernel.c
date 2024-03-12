@@ -18,6 +18,9 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
     gdtInit();
 
-    terminalWrite("Hello World");
+    setColors(RED, 20);
+    setColors(BLUE, YELLOW);
+
+    terminalWrite("Hello World \nGreetings from NEW YORK!! \n 1\n  2\n   3\n    4\n     5\n      6\n       7\n        8\n         9\n          10");
     return kernel_main();
 }
