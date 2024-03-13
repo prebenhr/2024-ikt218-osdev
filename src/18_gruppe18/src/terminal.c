@@ -1,5 +1,5 @@
-#include "terminal.h"
-#include "libc/stdint.h"
+#include <terminal.h>
+#include <libc/stdint.h>
 
 int col = 0;
 int row = 0;
@@ -98,4 +98,8 @@ void scrollUp()
     {
         vid[(height - 1) * width + x] = ' ' | defaultColor;
     }
+}
+
+void itos(int integer, char *string)
+{
 }

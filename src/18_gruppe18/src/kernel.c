@@ -1,9 +1,12 @@
-#include "libc/stdint.h"
-#include "libc/stddef.h"
-#include "libc/stdbool.h"
 #include <multiboot2.h>
 #include <gdt.h>
-#include "../include/terminal.h"
+#include <idt.h>
+#include <terminal.h>
+#include <io.h>
+#include <libc/stdint.h>
+#include <libc/stddef.h>
+
+extern void interrupt();
 
 struct multiboot_info
 {
@@ -17,10 +20,15 @@ int kernel_main();
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
     gdtInit();
+    terminalWrite("This is before initIdt\n");
+    initIdt();
+    terminalWrite("This is after initIdt\n");
+
+    interrupt();
 
     setColors(RED, 20);
     setColors(BLUE, YELLOW);
 
-    terminalWrite("Hello World \nGreetings from NEW YORK!! \n 1\n  2\n   3\n    4\n     5\n      6\n       7\n        8\n         9\n          10");
+    terminalWrite("Hello World \n");
     return kernel_main();
 }

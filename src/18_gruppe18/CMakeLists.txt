@@ -64,6 +64,12 @@ add_executable(uiaos-kernel
     src/kernel.c
 	src/kernel.cpp
 	src/terminal.c
+	src/idt.asm
+	src/idt.c
+	src/except_handler.c
+	src/exceptions.asm
+	src/isr.c
+	src/io.c
 )
 
 # Include directories for the kernel target
