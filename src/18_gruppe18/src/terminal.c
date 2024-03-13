@@ -1,5 +1,7 @@
 #include "terminal.h"
 #include "libc/stdint.h"
+#include "libc/stdarg.h"
+#include "libc/stdbool.h"
 
 int col = 0;
 int row = 0;
@@ -98,4 +100,83 @@ void scrollUp()
     {
         vid[(height - 1) * width + x] = ' ' | defaultColor;
     }
+}
+
+
+
+//itoa() implementation from https://www.geeksforgeeks.org/implement-itoa/
+
+char* citoa(int num, char* str, int base)
+{
+    int i = 0;
+    bool isNegative = false;
+ 
+    // Print 0 as value
+    if (num == 0) {
+        str[i++] = '0';
+        str[i] = '\0';
+        return str;
+    }
+ 
+    // Check if number is negative
+    if (num < 0 && base == 10) {
+        isNegative = true;
+        num = -num;
+    }
+ 
+    // Process individual digits
+    while (num != 0) {
+        int rem = num % base;
+        str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+        num = num / base;
+    }
+ 
+    // If number is negative, append '-'
+    if (isNegative)
+        str[i++] = '-';
+ 
+    str[i] = '\0'; // Append string terminator
+ 
+    // Reverse the string
+    int start = 0;
+    int end = i - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        end--;
+        start++;
+    }
+
+    return str;
+}
+
+// printf() implementation to print formatted strings.
+void printf(const char* str, ...)
+{
+    va_list ptr; 
+    va_start(ptr, str); 
+
+    for (int i = 0; str[i] != '\0'; i++) { 
+        if (str[i] != '%' && str[i] != '\0')
+        {
+            char singleChar[2] = {str[i], '\0'};
+            terminalWrite(singleChar);
+        }
+
+        else if (str[i] == '%' && (str[i+1] == 'i' || str[i+1] == 'd'))
+        {
+            int num = va_arg(ptr, int);
+            char digits[11];
+            citoa(num, digits, 10);
+            terminalWrite(digits);
+
+            i = i+1;
+        }
+
+        else{
+            break;
+        }
+    }
+    va_end(ptr);
 }
