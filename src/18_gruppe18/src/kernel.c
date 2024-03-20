@@ -5,6 +5,8 @@
 #include <io.h>
 #include <libc/stdint.h>
 #include <libc/stddef.h>
+#include <isr.h>
+#include <pit.h>
 
 extern void interrupt();
 
@@ -20,15 +22,18 @@ int kernel_main();
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
     gdtInit();
-    terminalWrite("This is before initIdt\n");
+    printf("This is %d before initIdt\n", 7283234);
     initIdt();
-    terminalWrite("This is after initIdt\n");
-
-    interrupt();
+    printf("This is after initIdt\n");
+    initPit();
+    initKeyboard();
+    while (1)
+    {
+    };
 
     setColors(RED, 20);
     setColors(BLUE, YELLOW);
 
-    terminalWrite("Hello World \n");
+    printf("Hello World \n");
     return kernel_main();
 }

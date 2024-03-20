@@ -70,6 +70,8 @@ add_executable(uiaos-kernel
 	src/exceptions.asm
 	src/isr.c
 	src/io.c
+	src/util.c
+	src/pit.c
 )
 
 # Include directories for the kernel target

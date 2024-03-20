@@ -1,3 +1,4 @@
+#pragma once
 #include "libc/stdint.h"
 
 /*Struct for a GDT entry, also known as a segment descriptor.

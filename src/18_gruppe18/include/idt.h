@@ -19,3 +19,4 @@ struct idt_pointer
 
 void initIdt();
 void createIdtEntry(int index, void *offset, uint8_t attributes);
+void remapPIC();

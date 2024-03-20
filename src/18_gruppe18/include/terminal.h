@@ -29,5 +29,6 @@ void setColors(uint16_t background, uint16_t text);
 void putc(const char c);
 void terminalWrite(const char *string);
 void itos(int integer, char *string);
+void printf(const char *str, ...);
 void scrollUp();
 void newLine();
