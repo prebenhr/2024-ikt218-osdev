@@ -16,7 +16,13 @@ uint8_t inb(uint16_t port)
     return ret;
 }
 
-void io_wait(void)
+void wait_for_interrupt(void)
 {
-    outb(0x80, 0);
+    __asm__ volatile("sti \n\t"
+                     "hlt");
+}
+
+void cli(void)
+{
+    __asm__ volatile("cli");
 }

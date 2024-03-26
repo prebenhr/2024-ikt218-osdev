@@ -66,7 +66,6 @@ add_executable(uiaos-kernel
 	src/terminal.c
 	src/idt.asm
 	src/idt.c
-	src/except_handler.c
 	src/exceptions.asm
 	src/isr.c
 	src/io.c

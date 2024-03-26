@@ -86,5 +86,6 @@ extern const char defaultLookup[];
 void isr_handler(registers_t r);
 void irq_handler(registers_t r);
 void set_isr_handler(uint8_t int_no, isr_t handler);
+
 void initKeyboard();
 void keyboard_handler(registers_t r);
