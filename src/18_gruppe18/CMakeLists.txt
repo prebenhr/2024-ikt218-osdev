@@ -76,6 +76,7 @@ add_executable(uiaos-kernel
 	src/util.c
 	src/keyboard.c
 	src/pit.c
+	src/apps/song.cpp
 	
 )
 

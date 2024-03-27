@@ -1,5 +1,6 @@
 #pragma once
 #include <libc/stdint.h>
+#include <isr.h>
 
 // PIT (Programmable Interval Timer) related macros
 #define PIT_CMD_PORT 0x43
