@@ -12,6 +12,10 @@ uint16_t *const vid = (uint16_t *const)0xB8000;
 uint16_t const defaultColor = (BLACK << 12) | (GRAY << 8);
 uint16_t selectedColor = defaultColor;
 
+void monitorInitialize()
+{
+}
+
 // Function to set color.
 // Ensures that color codes used are within valid range.
 void setColors(uint16_t background, uint16_t text)
@@ -202,6 +206,15 @@ void printf(const char *str, ...)
             terminalWrite(s);
 
             i++;
+        }
+        else if (str[i] == '%' && str[i + 1] == 'x')
+        {
+            int num = va_arg(ptr, int);
+            char digits[9];
+            citoa(num, digits, 16);
+            terminalWrite(digits);
+
+            i = i + 1;
         }
 
         else

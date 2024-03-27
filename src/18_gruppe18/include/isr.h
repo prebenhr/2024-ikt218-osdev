@@ -80,12 +80,9 @@ typedef struct
 typedef void (*isr_t)(registers_t);
 
 extern const char *exception_messages[];
-
-extern const char defaultLookup[];
+extern isr_t interrupt_handlers[];
 
 void isr_handler(registers_t r);
-void irq_handler(registers_t r);
-void set_isr_handler(uint8_t int_no, isr_t handler);
 
-void initKeyboard();
-void keyboard_handler(registers_t r);
+void set_isr_handler(uint8_t int_no, isr_t handler);
+void panic(const char *message);

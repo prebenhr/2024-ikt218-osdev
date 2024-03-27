@@ -7,6 +7,8 @@
 #include <libc/stddef.h>
 #include <libc/stdbool.h>
 #include <isr.h>
+#include <irq.h>
+#include <memory.h>
 #include <pit.h>
 
 extern void interrupt();
@@ -23,14 +25,27 @@ int kernel_main();
 
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
+
     gdtInit();
-    printf("This is %d before initIdt\n", 7283234);
+    printf("GDT initialized\n");
+
     initIdt();
-    printf("This is after initIdt\n");
+    printf("IDT initialized\n");
+
+    initIrq();
+
+    init_kernel_memory(&end);
+    printf("Kernel memory initialized\n");
+
+    init_paging();
+    printf("Paging initialized\n");
+
+    print_memory_layout();
 
     initPit(TARGET_FREQUENCY);
-    initKeyboard();
-    int counter = 0;
+    printf("PIT initialized with target frequency of %d Hz\n", TARGET_FREQUENCY);
+
+    /* int counter = 0;
     while (true)
     {
         printf("[%d]: Sleeping with busy-waiting (HIGH CPU).\n", counter);
@@ -40,10 +55,7 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
         printf("[%d]: Sleeping with interrupts (LOW CPU).\n", counter);
         sleep_interrupt(1000);
         printf("[%d]: Slept using interrupts.\n", counter++);
-    };
-    while (1)
-    {
-    };
+    }; */
 
     setColors(RED, 20);
     setColors(BLUE, YELLOW);

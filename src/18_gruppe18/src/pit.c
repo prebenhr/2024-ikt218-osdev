@@ -9,7 +9,6 @@ uint32_t ticks = 0;
 
 void initPit(uint16_t frequency)
 {
-    set_isr_handler(IRQ0, &pit_handler);
 
     uint16_t divisor = PIT_BASE_FREQUENCY / frequency;
     if (divisor % 2 != 0)
@@ -24,6 +23,8 @@ void initPit(uint16_t frequency)
 
 void pit_handler(registers_t r)
 {
+    if (ticks == UINT32_MAX)
+        ticks = 0;
     ticks++;
 }
 
