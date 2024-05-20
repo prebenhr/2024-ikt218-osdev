@@ -55,7 +55,7 @@ int kernel_main()
     char *memory4 = new char[1000]();
 
     Song *songs[] = {
-        new Song({music_1, sizeof(music_1) / sizeof(Note)})};
+        new Song({music_7, sizeof(music_7) / sizeof(Note)})};
     uint32_t n_songs = sizeof(songs) / sizeof(Song *);
 
     SongPlayer *player = create_song_player();

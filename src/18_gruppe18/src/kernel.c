@@ -58,7 +58,7 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
     }; */
 
     setColors(RED, 20);
-    setColors(BLUE, YELLOW);
+    setColors(BLACK, GRAY);
 
     printf("Hello World \n");
     return kernel_main();

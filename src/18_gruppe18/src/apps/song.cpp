@@ -53,6 +53,8 @@ void play_song(Song *song) {
     //    - This function handles the entire process of playing each note in the song.
 } */
 
+// The song player is heavily inspired by the example code provided in the course.
+
 extern "C"
 {
 
@@ -89,10 +91,6 @@ void disable_speaker()
     // Turn off the PC speaker
     uint8_t speaker_state = inb(PC_SPEAKER_PORT);
     outb(PC_SPEAKER_PORT, speaker_state & 0xFC);
-}
-
-void nosound()
-{
 }
 
 void play_sound(uint32_t frequency)
