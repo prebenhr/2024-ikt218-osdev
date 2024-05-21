@@ -1,5 +1,7 @@
-#include "libc/stdint.h"
-#include "gdt.h"
+// Inspired by OsDev.org and OliveStem on Youtube(https://www.youtube.com/@olivestemlearning)
+
+#include <libc/stdint.h>
+#include <gdt.h>
 
 // Telling the compiler that there is a function elsewhere (in the assembly code).
 extern void flush_gdt(addr_t);

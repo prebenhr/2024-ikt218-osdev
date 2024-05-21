@@ -1,9 +1,18 @@
-#include "libc/stdint.h"
-#include "libc/stddef.h"
-#include "libc/stdbool.h"
 #include <multiboot2.h>
 #include <gdt.h>
-#include "../include/terminal.h"
+#include <idt.h>
+#include <terminal.h>
+#include <io.h>
+#include <libc/stdint.h>
+#include <libc/stddef.h>
+#include <libc/stdbool.h>
+#include <isr.h>
+#include <irq.h>
+#include <memory.h>
+#include <pit.h>
+
+extern void interrupt();
+extern uint32_t end;
 
 struct multiboot_info
 {
@@ -12,15 +21,114 @@ struct multiboot_info
     struct multiboot_tag *first;
 };
 
+void lineDefault()
+{
+    setColors(RED, BLACK);
+    terminalWrite("            ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(RED, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+void lineWhite()
+{
+    setColors(WHITE, BLACK);
+    terminalWrite("            ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(WHITE, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+void lineBlue()
+{
+    setColors(BLUE, BLACK);
+    terminalWrite("            ");
+    setColors(BLUE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(BLUE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+
+void norgesflagg()
+{
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineWhite();
+    lineBlue();
+    lineBlue();
+    lineWhite();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+}
+
 int kernel_main();
 
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
+
     gdtInit();
+    printf("GDT initialized\n");
 
-    setColors(RED, 20);
-    setColors(BLUE, YELLOW);
+    initIdt();
+    printf("IDT initialized\n");
 
-    terminalWrite("Hello World \nGreetings from NEW YORK!! \n 1\n  2\n   3\n    4\n     5\n      6\n       7\n        8\n         9\n          10");
+    initIrq();
+
+    init_kernel_memory(&end);
+    printf("Kernel memory initialized\n");
+
+    init_paging();
+    printf("Paging initialized\n");
+    printf("Printing memory layout:\n\n");
+
+    print_memory_layout();
+
+    initPit(TARGET_FREQUENCY);
+    printf("PIT initialized with target frequency of %d Hz\n", TARGET_FREQUENCY);
+
+    /* int counter = 0;
+    while (true)
+    {
+        printf("[%d]: Sleeping with busy-waiting (HIGH CPU).\n", counter);
+        sleep_busy(1000);
+        printf("[%d]: Slept using busy-waiting.\n", counter++);
+
+        printf("[%d]: Sleeping with interrupts (LOW CPU).\n", counter);
+        sleep_interrupt(1000);
+        printf("[%d]: Slept using interrupts.\n", counter++);
+    }; */
+    sleep_interrupt(3000);
+    clearScreen();
+
+    setColors(RED, WHITE);
+    terminalWrite("Kjell");
+    setColors(BLACK, PURPLE);
+    terminalWrite("Propell");
+
+    sleep_interrupt(5000);
+
     return kernel_main();
 }

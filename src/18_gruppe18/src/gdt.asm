@@ -1,3 +1,5 @@
+;Inspired by OsDev.org and OliveStem on Youtube(https://www.youtube.com/@olivestemlearning)
+
 ;Tells the compiler that this function should be available from other parts of the code. 
 global flush_gdt
 
