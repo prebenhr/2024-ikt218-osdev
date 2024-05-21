@@ -58,22 +58,23 @@ int kernel_main()
     norgesflagg();
 
     setColors(BLACK, GRAY);
-
-    printf("Velkommen til NorgeOS - laget av Gruppe 18 \n");
+    printf("\n");
+    printf("                  Velkommen til NorgeOS - laget av Gruppe 18 \n");
 
     Song *songs[] = {
         new Song({anthem, sizeof(anthem) / sizeof(Note)})};
     uint32_t n_songs = sizeof(songs) / sizeof(Song *);
 
     SongPlayer *player = create_song_player();
-
+    printf("\n\n                       Reis dere for Norges nasjonalsang!\n");
     while (true)
     {
         for (uint32_t i = 0; i < n_songs; i++)
         {
-            printf("Reis dere for Norges nasjonalsang!\n");
+
             player->play_song(songs[i]);
-            printf("Takk for oss.\n");
+            if (i == 0)
+                printf("\n                                 Takk for oss.\n");
         }
     };
 

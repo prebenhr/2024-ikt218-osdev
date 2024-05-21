@@ -32,4 +32,5 @@ void terminalWrite(const char *string);
 void itos(int integer, char *string);
 void printf(const char *str, ...);
 void scrollUp();
+void disable_cursor();
 void newLine();
