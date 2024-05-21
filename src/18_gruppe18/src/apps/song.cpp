@@ -124,11 +124,11 @@ void play_sound(uint32_t frequency)
 
 void play_song_impl(Song *song)
 {
-
+    int j = 0;
     for (uint32_t i = 0; i < song->length; i++)
     {
         Note *note = &song->notes[i];
-        printf("Note: %d, Freq=%d, Sleep=%d\n", i, note->frequency, note->duration);
+        // printf("Note: %d, Freq=%d, Sleep=%d\n", i, note->frequency, note->duration);
         play_sound(note->frequency);
         sleep_interrupt(note->duration);
         disable_speaker();
@@ -140,21 +140,6 @@ void play_song(Song *song)
     play_song_impl(song);
 }
 
-/* void play_sound(uint32_t frequency)
-{
-    if (frequency == 0)
-    {
-        return;
-    }
-
-    auto divisor = (uint16_t)(PIT_BASE_FREQUENCY / frequency);
-
-    // Set up the PIT
-    outb(PIT_CMD_PORT, 0b10110110);
-    outb(PIT_CHANNEL2_PORT, (uint8_t)(divisor & 0xFF));
-    outb(PIT_CHANNEL2_PORT, (uint8_t)(divisor >> 8));
-}
- */
 SongPlayer *create_song_player()
 {
     auto *player = new SongPlayer();

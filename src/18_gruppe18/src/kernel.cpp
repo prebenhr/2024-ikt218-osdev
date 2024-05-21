@@ -4,7 +4,8 @@ extern "C"
 #include <memory.h>
 #include <libc/stdint.h>
 #include <terminal.h>
-
+#include <pit.h>
+    void norgesflagg();
     int kernel_main();
 }
 
@@ -46,16 +47,22 @@ void operator delete[](void *ptr, size_t size) noexcept
 int kernel_main()
 {
 
-    printf("We are now in CPP kernel.\n");
-    // Allocate some memory using the kernel memory manager
-    // THIS IS PART OF THE ASSIGNMENT
+    // printf("We are now in CPP kernel.\n");
+    //  Allocate some memory using the kernel memory manager
+    //  THIS IS PART OF THE ASSIGNMENT
     void *some_memory = malloc(12345);
     void *memory2 = malloc(54321);
     void *memory3 = malloc(13331);
     char *memory4 = new char[1000]();
 
+    norgesflagg();
+
+    setColors(BLACK, GRAY);
+
+    printf("Velkommen til NorgeOS - laget av Gruppe 18 \n");
+
     Song *songs[] = {
-        new Song({music_7, sizeof(music_7) / sizeof(Note)})};
+        new Song({anthem, sizeof(anthem) / sizeof(Note)})};
     uint32_t n_songs = sizeof(songs) / sizeof(Song *);
 
     SongPlayer *player = create_song_player();
@@ -64,9 +71,9 @@ int kernel_main()
     {
         for (uint32_t i = 0; i < n_songs; i++)
         {
-            printf("Playing Song...\n");
+            printf("Reis dere for Norges nasjonalsang!\n");
             player->play_song(songs[i]);
-            printf("Finished playing the song.\n");
+            printf("Takk for oss.\n");
         }
     };
 

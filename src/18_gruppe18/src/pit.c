@@ -1,3 +1,5 @@
+// Inspired by OsDev.org and OliveStem on Youtube(https://www.youtube.com/@olivestemlearning)
+
 #include <libc/stdint.h>
 #include <libc/limits.h>
 #include <isr.h>

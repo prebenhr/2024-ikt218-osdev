@@ -64,6 +64,12 @@ void terminalWrite(const char *string)
             *ptr++;
             continue;
         }
+        if (*ptr == '\b')
+        {
+            backSpace();
+            *ptr++;
+            continue;
+        }
         vid[row * width + col] = *ptr | selectedColor;
         *ptr++;
         col++;
@@ -102,6 +108,18 @@ void newLine()
         scrollUp();
     }
     move_cursor(col, row);
+}
+
+void backSpace()
+{
+    if (col != 0)
+    {
+        col--;
+        terminalWrite("  ");
+        col--;
+        col--;
+        move_cursor(col, row);
+    }
 }
 
 // Function to scroll text up. Copies every character up one row and writes spaces to the bottom row.

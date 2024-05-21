@@ -21,6 +21,69 @@ struct multiboot_info
     struct multiboot_tag *first;
 };
 
+void lineDefault()
+{
+    setColors(RED, BLACK);
+    terminalWrite("            ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(RED, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+void lineWhite()
+{
+    setColors(WHITE, BLACK);
+    terminalWrite("            ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(WHITE, BLACK);
+    terminalWrite("  ");
+    setColors(WHITE, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+void lineBlue()
+{
+    setColors(BLUE, BLACK);
+    terminalWrite("            ");
+    setColors(BLUE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("    ");
+    setColors(BLUE, BLACK);
+    terminalWrite("  ");
+    setColors(BLUE, BLACK);
+    terminalWrite("                       ");
+    newLine();
+}
+
+void norgesflagg()
+{
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineWhite();
+    lineBlue();
+    lineBlue();
+    lineWhite();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+    lineDefault();
+}
+
 int kernel_main();
 
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
@@ -39,6 +102,7 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 
     init_paging();
     printf("Paging initialized\n");
+    printf("Printing memory layout:\n\n");
 
     print_memory_layout();
 
@@ -56,10 +120,15 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
         sleep_interrupt(1000);
         printf("[%d]: Slept using interrupts.\n", counter++);
     }; */
+    sleep_interrupt(3000);
+    clearScreen();
 
-    setColors(RED, 20);
-    setColors(BLACK, GRAY);
+    setColors(RED, WHITE);
+    terminalWrite("Kjell");
+    setColors(BLACK, PURPLE);
+    terminalWrite("Propell");
 
-    printf("Hello World \n");
+    sleep_interrupt(5000);
+
     return kernel_main();
 }
