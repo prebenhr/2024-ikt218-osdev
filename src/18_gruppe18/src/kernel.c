@@ -23,6 +23,8 @@ struct multiboot_info
 
 void lineDefault()
 {
+    setColors(BLACK, BLACK);
+    terminalWrite("                  ");
     setColors(RED, BLACK);
     terminalWrite("            ");
     setColors(WHITE, BLACK);
@@ -37,6 +39,8 @@ void lineDefault()
 }
 void lineWhite()
 {
+    setColors(BLACK, BLACK);
+    terminalWrite("                  ");
     setColors(WHITE, BLACK);
     terminalWrite("            ");
     setColors(WHITE, BLACK);
@@ -51,6 +55,8 @@ void lineWhite()
 }
 void lineBlue()
 {
+    setColors(BLACK, BLACK);
+    terminalWrite("                  ");
     setColors(BLUE, BLACK);
     terminalWrite("            ");
     setColors(BLUE, BLACK);
@@ -90,24 +96,24 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
 
     gdtInit();
-    printf("GDT initialized\n");
+    // printf("GDT initialized\n");
 
     initIdt();
-    printf("IDT initialized\n");
+    // printf("IDT initialized\n");
 
     initIrq();
 
     init_kernel_memory(&end);
-    printf("Kernel memory initialized\n");
+    // printf("Kernel memory initialized\n");
 
     init_paging();
-    printf("Paging initialized\n");
-    printf("Printing memory layout:\n\n");
+    // printf("Paging initialized\n");
+    // printf("Printing memory layout:\n\n");
 
-    print_memory_layout();
+    // print_memory_layout();
 
     initPit(TARGET_FREQUENCY);
-    printf("PIT initialized with target frequency of %d Hz\n", TARGET_FREQUENCY);
+    // printf("PIT initialized with target frequency of %d Hz\n", TARGET_FREQUENCY);
 
     /* int counter = 0;
     while (true)
@@ -120,15 +126,9 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
         sleep_interrupt(1000);
         printf("[%d]: Slept using interrupts.\n", counter++);
     }; */
-    sleep_interrupt(3000);
+
     clearScreen();
-
-    setColors(RED, WHITE);
-    terminalWrite("Kjell");
-    setColors(BLACK, PURPLE);
-    terminalWrite("Propell");
-
-    sleep_interrupt(5000);
+    disable_cursor();
 
     return kernel_main();
 }
